@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 
-// This ferryTicket Class
+// This FerryTicket Class database model
+
+
 class FerryTicket {
   final int? ticketId; // Ticket ID
   final DateTime departDate; // Departure date
