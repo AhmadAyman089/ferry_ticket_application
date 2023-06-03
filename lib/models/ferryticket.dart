@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+//this is class for ferry ticket
 class FerryTicket {
   final int? ticketId; // Ticket ID
   final DateTime departDate; // Departure date
@@ -45,7 +46,8 @@ class FerryTicket {
   String toJson() => json.encode(toMap());
 
   // Create a FerryTicket object from a JSON string.
-  factory FerryTicket.fromJson(String source) => FerryTicket.fromMap(json.decode(source));
+  factory FerryTicket.fromJson(String source) =>
+      FerryTicket.fromMap(json.decode(source));
 
   // Override the toString method to provide a string representation of a FerryTicket object.
   @override
