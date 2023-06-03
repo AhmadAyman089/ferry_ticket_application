@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-//this is class for ferry ticket
-//Test 
+
+// This ferryTicket Class
 class FerryTicket {
   final int? ticketId; // Ticket ID
   final DateTime departDate; // Departure date
