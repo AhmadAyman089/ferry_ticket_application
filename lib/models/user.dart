@@ -32,7 +32,7 @@ class User {
   // Create a User object from a map representation.
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      userId: map['user_id']?.toInt(),
+      userId: map['user_id']?.toInt() ?? 0,
       firstName: map['f_name'] ?? '',
       lastName: map['l_name'] ?? '',
       username: map['username'] ?? '',

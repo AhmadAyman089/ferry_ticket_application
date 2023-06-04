@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:ferry_ticket_application/services/database_service.dart';
 
 class Bookings extends StatefulWidget {
   final String userID;
@@ -18,7 +18,7 @@ class _Bookings extends State<Bookings> {
   }
 
   Future GetListingData() async {
-    //final db = database_service.dart();
+    final db = DatabaseService();
     var bookingdata = await db.findAllBookings(widget.userID);
 
     var lengthOfBookingData = bookingdata.length;
@@ -80,8 +80,8 @@ class _Bookings extends State<Bookings> {
                               onPressed: () {
 
                                 print(bookingIDs[index]);
-                                Navigator.pushReplacement(context,
-    //MaterialPageRoute(builder: (context) => ViewBookingForm(userID: widget.userID, bookingId: bookingIDs[index])));
+                                //Navigator.pushReplacement(context,
+                  // MaterialPageRoute(builder: (context) => ViewBookingForm(userID: widget.userID, bookingId: bookingIDs[index])));
 
 
                               },
@@ -101,15 +101,15 @@ class _Bookings extends State<Bookings> {
       ElevatedButton(
         child: const Text('New Booking'),
         onPressed: () {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => BookingForm(userID: widget.userID,)));
+         // Navigator.pushReplacement(context,
+             // MaterialPageRoute(builder: (context) => BookingForm(userID: widget.userID,)));
         },
       ),
       ElevatedButton(
         child: const Text('Logout'),
         onPressed: () {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => MyHomePage()));
+          //Navigator.pushReplacement(context,
+             // MaterialPageRoute(builder: (context) => MyHomePage()));
         },
       )]))
     ]));

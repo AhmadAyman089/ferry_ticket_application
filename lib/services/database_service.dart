@@ -23,7 +23,7 @@ class DatabaseService {
     // Set the path to the database. Note: Using the `join` function from the
     // `path` package is best practice to ensure the path is correctly
     // constructed for each platform.
-    final path = join(databasePath, 'ferrytick_app.db');
+    final path = join(databasePath, 'ferryticketDB.db');
     // Set the version. This executes the onCreate function and provides a
     // path to perform database upgrades and downgrades.
     return await openDatabase(
@@ -37,16 +37,8 @@ class DatabaseService {
   //create tables for user and ferryticket in the database
   Future<void> _onCreate(Database db, int version) async {
     // Run the CREATE {user} TABLE statement on the database.
-    await db.execute('''
-      CREATE TABLE user(
-        user_id INTEGER PRIMARY KEY ,
-        f_name VARCHAR(50) NOT NULL,
-        l_name VARCHAR(50) NOT NULL,
-        username VARCHAR(20) NOT NULL,
-        password VARCHAR(20) NOT NULL,
-        mobilehp VARCHAR(20) NOT NULL
-      )
-    ''');
+    await db.execute('CREATE TABLE user(user_id INTEGER PRIMARY KEY,f_name TEXT,l_name TEXT,username TEXT,password TEXT,mobilehp TEXT)',
+        );
 
     await db.execute('''
       CREATE TABLE ferryticket(
@@ -91,7 +83,7 @@ class DatabaseService {
     bool validLogin;
 
     //Execute a query on the "User" table to check if a matching username and password exist
-    List<Map> loginQuery = await db.query("User",
+    List<Map> loginQuery = await db.query("user",
         columns: ["username", "password"],
         where: "username = ? and password = ?",
         whereArgs: [username, password]);
@@ -181,70 +173,39 @@ class DatabaseService {
     return userDataArray;
   }
 
-  Future<List<Map>> deleteBooking(String user_id, String bookingID) async {
-    final db = await database;
+ 
 
-    List<Map> ticket = await db.rawQuery('''
-     DELETE FROM ferryticket where user_id =$user_id and book_id =$bookingID
-
-     ''');
-
-    return ticket;
-  }
-
-  Future<void> updateBooking(
-      String user_id,
-      String booking_id,
-      String name,
-      String surname,
-      String phoneNumber,
-      String date,
-      String departLocation,
-      String destLocation,
-      String journeyType) async {
-    final db = await database;
-
-    String userUpdateQuery = "UPDATE User SET f_name" +
-        "=" +
-        "'" +
-        name +
-        "'" +
-        "," +
-        "l_name" +
-        "=" +
-        "'" +
-        surname +
-        "'" +
-        "," +
-        "mobilehp" +
-        "=" +
-        phoneNumber +
-        " WHERE user_id " +
-        "=" +
-        user_id;
-    var userUpdate = await db.rawQuery(userUpdateQuery);
-
-    String deleteTicketQuery =
-        "DELETE FROM FerryTicket Where book_id = $booking_id ";
-    var ticketDelete = await db.rawQuery(deleteTicketQuery);
-
-    if (journeyType == "") {
-      journeyType = "With return ticket";
-    }
-
-    var SameTicket = new FerryTicket(
-      bookId: int.parse(booking_id),
-      departDate: DateTime.parse(date),
-      journey: journeyType,
-      departRoute: departLocation,
-      destRoute: destLocation,
-      userId: int.parse(user_id),
+ Future<void> deleteBooking(int id) async {
+    // Get a reference to the database.
+    final db = await _databaseService.database;
+    // Remove the Brand from the database.
+    await db.delete(
+      'ferryticket',
+      // Use a `where` clause to delete a specific brand.
+      where: 'book_id = ?',
+      // Pass the Brand's id as a whereArg to prevent SQL injection.
+      whereArgs: [id],
     );
-    insertFerryTicket(SameTicket);
-
-    print("Updated succesfully!");
   }
 
-  
+
+
+ Future<void> updateBooking(FerryTicket ferryticket) async {
+    // Get a reference to the database.
+    final db = await _databaseService.database;
+    // Update the given brand
+    await db.update(
+      'ferryticket',
+      ferryticket.toMap(),
+      // Ensure that the Brand has a matching id.
+      where: 'book_id = ?',
+      // Pass the Brand's id as a whereArg to prevent SQL injection.
+      whereArgs: [ferryticket.book_id],
+    );
+  }
+
+
+
+
   
 }

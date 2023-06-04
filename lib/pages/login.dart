@@ -92,10 +92,11 @@ class _MyLoginForm extends State<LoginForm> {
     if (isLoginValid == true) {
       String userID =
           await db.getUserID(nameController.text, passwordController.text);
-      await Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => Bookings(userID: userID)),
-      );
+      //await Navigator.pushReplacement(
+        //context,
+       // MaterialPageRoute(builder: (context) => Bookings(userID: userID)),
+
+      //);
 
       //TODO: Replace ViewBookingForm with the screen where you can manage bookings.
       return true;

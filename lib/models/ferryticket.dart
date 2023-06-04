@@ -4,43 +4,47 @@ import 'dart:convert';
 
 //kita cuba je
 class FerryTicket {
-  final int? ticketId; // Ticket ID
-  final DateTime departDate; // Departure date
+  final int? book_id; // Ticket ID
+  final DateTime depart_date; // Departure date
   final String journey; // Journey
-  final String departRoute; // Departure route
-  final String destRoute; // Destination route
-  final int? userId; // User ID
+  final String depart_route; // Departure route
+  final String dest_route; // Destination route
+  final int user_id; // User ID
 
-  FerryTicket({
-    this.ticketId,
-    required this.departDate,
+   FerryTicket({
+    this.book_id,
+    required this.depart_date,
     required this.journey,
-    required this.departRoute,
-    required this.destRoute,
-    this.userId, required int bookId,
+    required this.depart_route,
+    required this.dest_route,
+    required this.user_id, 
+    
+
   });
 
   // Convert a FerryTicket object into a map. The keys correspond to the names of the columns in the database.
   Map<String, dynamic> toMap() {
     return {
-      'ticket_id': ticketId,
-      'depart_date': departDate.toIso8601String(),
+      'ticket_id': book_id,
+      'depart_date': depart_date.toIso8601String(),
       'journey': journey,
-      'depart_route': departRoute,
-      'dest_route': destRoute,
-      'user_id': userId,
+      'depart_route': depart_route,
+      'dest_route': dest_route,
+      'user_id': user_id,
     };
   }
 
   // Create a FerryTicket object from a map representation.
   factory FerryTicket.fromMap(Map<String, dynamic> map) {
     return FerryTicket(
-      ticketId: map['ticket_id']?.toInt(),
-      departDate: DateTime.parse(map['depart_date']),
+      book_id: map['ticket_id']?.toInt() ?? 0,
+      depart_date: DateTime.parse(map['depart_date']),
       journey: map['journey'] ?? '',
-      departRoute: map['depart_route'] ?? '',
-      destRoute: map['dest_route'] ?? '',
-      userId: map['user_id']?.toInt(),
+      depart_route: map['depart_route'] ?? '',
+      dest_route: map['dest_route'] ?? '',
+      user_id: map['user_id']?.toInt() ?? 0,
+    
+
     );
   }
 
@@ -54,7 +58,7 @@ class FerryTicket {
   // Override the toString method to provide a string representation of a FerryTicket object.
   @override
   String toString() {
-    return 'FerryTicket(ticketId: $ticketId, departDate: $departDate, journey: $journey, '
-        'departRoute: $departRoute, destRoute: $destRoute, userId: $userId)';
+    return 'FerryTicket(ticketId: $book_id, departDate: $depart_date, journey: $journey, '
+        'departRoute: $depart_route, destRoute: $dest_route, userId: $user_id)';
   }
 }
