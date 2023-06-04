@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ferry_ticket_application/services/database_service.dart';
 
+import 'home_page.dart';
+
 class Bookings extends StatefulWidget {
   final String userID;
   const Bookings({required this.userID});
@@ -23,23 +25,12 @@ class _Bookings extends State<Bookings> {
 
     var lengthOfBookingData = bookingdata.length;
     for (int i = 0; i < bookingdata.length; i++) {
-      String singleTitle = "From " + bookingdata
-          .elementAt(i)
-          .entries
-          .elementAt(3)
-          .value
-          .toString() + " to " + bookingdata
-          .elementAt(i)
-          .entries
-          .elementAt(4)
-          .value
-          .toString();
-      String bookingNr =  bookingdata
-          .elementAt(i)
-          .entries
-          .elementAt(0)
-          .value
-          .toString();
+      String singleTitle = "From " +
+          bookingdata.elementAt(i).entries.elementAt(3).value.toString() +
+          " to " +
+          bookingdata.elementAt(i).entries.elementAt(4).value.toString();
+      String bookingNr =
+          bookingdata.elementAt(i).entries.elementAt(0).value.toString();
       trips.add(singleTitle);
       bookingIDs.add(bookingNr);
     }
@@ -71,7 +62,7 @@ class _Bookings extends State<Bookings> {
                           child: Column(children: [
                             ListTile(
                               title: Text(trips[index]),
-                              subtitle: Text("Booking number: "+bookingIDs[index]),
+                              subtitle: Text("Booking number: "+ bookingIDs[index]),
                               leading: Icon(Icons.directions_boat_outlined,
                                   color: Colors.blue.shade400),
                             ),
@@ -108,8 +99,8 @@ class _Bookings extends State<Bookings> {
       ElevatedButton(
         child: const Text('Logout'),
         onPressed: () {
-          //Navigator.pushReplacement(context,
-             // MaterialPageRoute(builder: (context) => MyHomePage()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => MyHomePage()));
         },
       )]))
     ]));

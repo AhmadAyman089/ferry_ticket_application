@@ -20,7 +20,7 @@ class SplashScreenState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.white, child: Image.asset('assets/ferrylogo.jpg'));
+        color: Colors.white, child: Image.asset('assets/ferrylogo.png'));
   }
 }
 

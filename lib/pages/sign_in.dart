@@ -5,6 +5,7 @@ import 'package:ferry_ticket_application/models/user.dart';
 import 'package:ferry_ticket_application/services/database_service.dart';
 
 
+import 'home_page.dart';
 import 'login.dart';
 
 class SigninForm extends StatefulWidget {
@@ -15,8 +16,10 @@ class SigninForm extends StatefulWidget {
 }
 
 class _MySigninForm extends State<SigninForm> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController surNameController = TextEditingController();
+
+
+  TextEditingController fNameController = TextEditingController();
+  TextEditingController lNameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
 
   TextEditingController passwordController = TextEditingController();
@@ -28,7 +31,7 @@ class _MySigninForm extends State<SigninForm> {
         child: ListView(
       children: <Widget>[
         AppBar(
-          title: Text('TravelWithFerry',
+          title: Text('Sign Up',
               style: TextStyle(color: Colors.white, fontSize: 35)),
           backgroundColor: Colors.pink,
         ),
@@ -48,19 +51,19 @@ class _MySigninForm extends State<SigninForm> {
           ),
         ),
         TextFormField(
-          controller: nameController,
+          controller: fNameController,
           decoration: const InputDecoration(
             icon: const Icon(Icons.person),
-            hintText: 'Enter your name',
-            labelText: 'Name',
+            hintText: 'Enter your first name',
+            labelText: 'First name',
           ),
         ),
         TextFormField(
-          controller: surNameController,
+          controller: lNameController,
           decoration: const InputDecoration(
             icon: const Icon(Icons.person),
-            hintText: 'Enter your Surname',
-            labelText: 'Surname',
+            hintText: 'Enter your Last Name',
+            labelText: 'Last name',
           ),
         ),
         Container(
@@ -90,15 +93,15 @@ class _MySigninForm extends State<SigninForm> {
               onPressed: () {
                 var newUser = User(
                     userId: Random.secure().nextInt(100),
-                    firstName: nameController.text,
-                    lastName: surNameController.text,
+                    firstName: fNameController.text,
+                    lastName: lNameController.text,
                     username: usernameController.text,
                     password: passwordController.text,
                     mobileNumber: mobileController.text);
                 final db = DatabaseService();
                 db.insertUser(newUser);
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const LoginForm()));
+                    MaterialPageRoute(builder: (context) => MyHomePage()));
               },
             )),
       ],

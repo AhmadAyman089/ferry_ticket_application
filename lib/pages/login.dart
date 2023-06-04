@@ -29,7 +29,7 @@ class _MyLoginForm extends State<LoginForm> {
           Container(
               color: Colors.white,
               height: 200.0,
-              child: Image.asset('assets/ferrylogo.jpg')),
+              child: Image.asset('assets/ferrylogo.png')),
           Container(
               alignment: Alignment.center,
               child: const Text(
@@ -92,11 +92,11 @@ class _MyLoginForm extends State<LoginForm> {
     if (isLoginValid == true) {
       String userID =
           await db.getUserID(nameController.text, passwordController.text);
-      //await Navigator.pushReplacement(
-        //context,
-       // MaterialPageRoute(builder: (context) => Bookings(userID: userID)),
+      await Navigator.pushReplacement(
+        context,
+       MaterialPageRoute(builder: (context) => Bookings(userID: userID)),
 
-      //);
+      );
 
       //TODO: Replace ViewBookingForm with the screen where you can manage bookings.
       return true;

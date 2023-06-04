@@ -50,7 +50,7 @@ class User {
   // Override the toString method to provide a string representation of a User object.
   @override
   String toString() {
-    return 'User(userId: $userId, firstName: $firstName, lastName: $lastName, '
-        'username: $username, password: $password, mobileNumber: $mobileNumber)';
+    return 'User(user_id: $userId, f_name: $firstName, l_name: $lastName, '
+        'username: $username, password: $password, mobilehp: $mobileNumber)';
   }
 }
