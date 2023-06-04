@@ -1,22 +1,29 @@
 import 'dart:ffi';
 import 'dart:math';
+import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
 
+import '../models/ferryticket.dart';
+import '../services/database_service.dart';
+import 'Booking.dart';
+
 
 // Create a Form widget.
-class NewBookingForm extends StatefulWidget {
+class BookingForm extends StatefulWidget {
+  
   final String userID;
-  const NewBookingForm({required this.userID});
+
+  const BookingForm({required this.userID});
   @override
-  NewBookingFormState createState() {
-    return NewBookingFormState();
+  BookingFormState createState() {
+    return BookingFormState();
   }
 }
 
 
 // Create a corresponding State class. This class holds data related to the form.
-class NewBookingFormState extends State<NewBookingForm> {
+class BookingFormState extends State<BookingForm> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   final _formKey = GlobalKey<FormState>();
@@ -189,8 +196,8 @@ class NewBookingFormState extends State<NewBookingForm> {
                   ElevatedButton(
                     child: Text('Confirm Booking'),
                     onPressed: (){
-                      var newTicket = new FerryTicket(bookId: Random.secure().nextInt(999), departDate: DateTime.parse(dateInput.text), journey: _checkbox.toString(), departRoute: dropdownvalue1, destRoute: dropdownvalue2, userId: int.parse(widget.userID));
-                      DBService().insertFerryTicket(newTicket);
+                      var newTicket = new FerryTicket(book_id: Random.secure().nextInt(999), depart_date: DateTime.parse(dateInput.text), journey: _checkbox.toString(), depart_route: dropdownvalue1, dest_route: dropdownvalue2, user_id: int.parse(widget.userID));
+                      DatabaseService().insertFerryTicket(newTicket);
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder:
                               (context) => Bookings(userID:widget.userID )

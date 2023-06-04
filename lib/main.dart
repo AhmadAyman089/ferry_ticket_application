@@ -1,6 +1,5 @@
 import 'package:ferry_ticket_application/pages/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:ferry_ticket_application/pages/login.dart';
 
 void main() {
   runApp(const MyApp());
