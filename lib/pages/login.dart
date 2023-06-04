@@ -94,7 +94,7 @@ class _MyLoginForm extends State<LoginForm> {
           await db.getUserID(nameController.text, passwordController.text);
       await Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => booking(userID: userID)),
+        MaterialPageRoute(builder: (context) => Bookings(userID: userID)),
       );
 
       //TODO: Replace ViewBookingForm with the screen where you can manage bookings.

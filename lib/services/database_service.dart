@@ -245,17 +245,6 @@ class DatabaseService {
     print("Updated succesfully!");
   }
 
-  void testFerryTicket() {
-    var ticket = new FerryTicket(
-      bookId: Random.secure().nextInt(200),
-      departDate: DateTime.now(),
-      journey: 'One Way',
-      departRoute: 'Kuala Lumpur',
-      destRoute: 'Singapore',
-      userId: 1,
-    );
-    final DatabaseService db = DatabaseService();
-
-    db.insertFerryTicket(ticket);
-  }
+  
+  
 }

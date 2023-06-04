@@ -17,7 +17,7 @@ class FerryTicket {
     required this.journey,
     required this.departRoute,
     required this.destRoute,
-    this.userId,
+    this.userId, required int bookId,
   });
 
   // Convert a FerryTicket object into a map. The keys correspond to the names of the columns in the database.

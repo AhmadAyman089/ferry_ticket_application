@@ -3,8 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:ferry_ticket_application/models/user.dart';
 import 'package:ferry_ticket_application/services/database_service.dart';
-import 'package:ferry_ticket_application/pages/login.dart';
-import 'package:ferry_ticket_application/pages/home_page.dart';
+
+
+import 'login.dart';
 
 class SigninForm extends StatefulWidget {
   const SigninForm({Key? key}) : super(key: key);
@@ -87,17 +88,17 @@ class _MySigninForm extends State<SigninForm> {
             child: ElevatedButton(
               child: const Text('Register & Go to login'),
               onPressed: () {
-                var newUser = user(
+                var newUser = User(
                     userId: Random.secure().nextInt(100),
-                    f_Name: nameController.text,
-                    l_Name: surNameController.text,
+                    firstName: nameController.text,
+                    lastName: surNameController.text,
                     username: usernameController.text,
                     password: passwordController.text,
-                    mobilehp: mobileController.text);
+                    mobileNumber: mobileController.text);
                 final db = DatabaseService();
                 db.insertUser(newUser);
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => MyHomePage()));
+                    MaterialPageRoute(builder: (context) => const LoginForm()));
               },
             )),
       ],

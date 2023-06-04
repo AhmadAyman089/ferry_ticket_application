@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ferry_ticket_application/pages/sign_in.dart';
 import 'dart:async';
 import 'package:ferry_ticket_application/pages/login.dart';
-import 'package:ferry_ticket_application/pages/booking.dart';
-import 'package:ferry_ticket_application/pages/new_booking.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
