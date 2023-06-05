@@ -173,7 +173,11 @@ class DatabaseService {
     return userDataArray;
   }
 
- 
+   Future<List<FerryTicket>> ferryTicket() async {
+    final db = await _databaseService.database;
+    final List<Map<String, dynamic>> maps = await db.query('ferryticket');
+    return List.generate(maps.length, (index) => FerryTicket.fromMap(maps[index]));
+  }
 
  Future<void> deleteBooking(int id) async {
     // Get a reference to the database.
@@ -205,7 +209,12 @@ class DatabaseService {
   }
 
 
-
+  Future<User> user(int id) async {
+    final db = await _databaseService.database;
+    final List<Map<String, dynamic>> maps =
+        await db.query('user', where: 'user_id = ?', whereArgs: [id]);
+    return User.fromMap(maps[0]);
+  }
 
   
 }

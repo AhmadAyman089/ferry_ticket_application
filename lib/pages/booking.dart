@@ -1,3 +1,4 @@
+import 'package:ferry_ticket_application/models/ferryticket.dart';
 import 'package:flutter/material.dart';
 import 'package:ferry_ticket_application/services/database_service.dart';
 import 'BookingForm.dart';
@@ -21,22 +22,12 @@ class _Bookings extends State<Bookings> {
   }
 
   Future GetListingData() async {
-    final db = DatabaseService();
-    var bookingdata = await db.findAllBookings(widget.userID);
 
-    var lengthOfBookingData = bookingdata.length;
-    for (int i = 0; i < bookingdata.length; i++) {
-      String singleTitle = "From " +
-          bookingdata.elementAt(i).entries.elementAt(3).value.toString() +
-          " to " +
-          bookingdata.elementAt(i).entries.elementAt(4).value.toString();
-      String bookingNr =
-          bookingdata.elementAt(i).entries.elementAt(0).value.toString();
-      trips.add(singleTitle);
-      bookingIDs.add(bookingNr);
-    }
-    print(lengthOfBookingData);
-    return "success";
+    final DatabaseService _databaseService = DatabaseService();
+
+    Future<List<FerryTicket>> _getFerryTicket() async {
+    return await _databaseService.ferryTicket();
+
   }
 
   @override
@@ -45,7 +36,7 @@ class _Bookings extends State<Bookings> {
         drawer: NavBar(),
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text('Ferry Ticket',
+          title: Text('Ferry Ticket Database',
               style: TextStyle(color: Colors.white, fontSize: 35)),
           backgroundColor: Colors.blue,
         ),
