@@ -29,21 +29,21 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
- 
 
   @override
   Widget build(BuildContext context) {
+   
     return DefaultTabController(
       length: 1,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Ferry Ticket '),
           centerTitle: true,
-          bottom: const TabBar(
+          bottom:  TabBar(
             tabs: [
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 16.0),
-                child: Text('Ferry Ticket'),
+                child: Text(widget.userID),
               ),
              
             ],

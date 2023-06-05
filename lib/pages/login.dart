@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
               controller: nameController,
               decoration: const InputDecoration(
                 border: UnderlineInputBorder(),
-                labelText: 'UserName',
+                labelText: 'Username',
               ),
             ),
           ),
@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
 
       
       return true;
-      
+
     } else {
       print("Try again!");
       return false;

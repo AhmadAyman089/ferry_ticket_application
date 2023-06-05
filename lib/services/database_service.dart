@@ -37,8 +37,9 @@ class DatabaseService {
   //create tables for user and ferryticket in the database
   Future<void> _onCreate(Database db, int version) async {
     // Run the CREATE {user} TABLE statement on the database.
-    await db.execute('CREATE TABLE user(user_id INTEGER PRIMARY KEY,f_name TEXT,l_name TEXT,username TEXT,password TEXT,mobilehp TEXT)',
-        );
+    await db.execute(
+      'CREATE TABLE user(user_id INTEGER PRIMARY KEY,f_name TEXT,l_name TEXT,username TEXT,password TEXT,mobilehp TEXT)',
+    );
 
     await db.execute('''
       CREATE TABLE ferryticket(
@@ -173,13 +174,14 @@ class DatabaseService {
     return userDataArray;
   }
 
-   Future<List<FerryTicket>> ferryTicket() async {
+  Future<List<FerryTicket>> ferryTicket() async {
     final db = await _databaseService.database;
     final List<Map<String, dynamic>> maps = await db.query('ferryticket');
-    return List.generate(maps.length, (index) => FerryTicket.fromMap(maps[index]));
+    return List.generate(
+        maps.length, (index) => FerryTicket.fromMap(maps[index]));
   }
 
- Future<void> deleteBooking(int id) async {
+  Future<void> deleteBooking(int id) async {
     // Get a reference to the database.
     final db = await _databaseService.database;
     // Remove the Brand from the database.
@@ -192,9 +194,7 @@ class DatabaseService {
     );
   }
 
-
-
- Future<void> updateBooking(FerryTicket ferryticket) async {
+  Future<void> updateBooking(FerryTicket ferryticket) async {
     // Get a reference to the database.
     final db = await _databaseService.database;
     // Update the given brand
@@ -208,13 +208,10 @@ class DatabaseService {
     );
   }
 
-
   Future<User> user(int id) async {
     final db = await _databaseService.database;
     final List<Map<String, dynamic>> maps =
         await db.query('user', where: 'user_id = ?', whereArgs: [id]);
     return User.fromMap(maps[0]);
   }
-
-  
 }
