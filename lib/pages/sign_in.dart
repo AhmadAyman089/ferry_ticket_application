@@ -101,7 +101,7 @@ class _MySigninForm extends State<SigninForm> {
                 final db = DatabaseService();
                 db.insertUser(newUser);
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => MyHomePage()));
+                    MaterialPageRoute(builder: (context) =>  LoginPage()));
               },
             )),
       ],

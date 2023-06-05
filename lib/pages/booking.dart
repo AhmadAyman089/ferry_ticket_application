@@ -12,6 +12,7 @@ class Bookings extends StatefulWidget {
   State<Bookings> createState() => _Bookings();
 }
 
+
 class _Bookings extends State<Bookings> {
   var trips = [];
   var bookingIDs = [];
@@ -22,13 +23,35 @@ class _Bookings extends State<Bookings> {
   }
 
   Future GetListingData() async {
+    final db = DatabaseService();
+    var bookingdata = await db.findAllBookings(widget.userID);
 
-    final DatabaseService _databaseService = DatabaseService();
-
-    Future<List<FerryTicket>> _getFerryTicket() async {
-    return await _databaseService.ferryTicket();
-
+    var lengthOfBookingData = bookingdata.length;
+    for (int i = 0; i < bookingdata.length; i++) {
+      String singleTitle = "From " + bookingdata
+          .elementAt(i)
+          .entries
+          .elementAt(3)
+          .value
+          .toString() + " to " + bookingdata
+          .elementAt(i)
+          .entries
+          .elementAt(4)
+          .value
+          .toString();
+      String bookingNr =  bookingdata
+          .elementAt(i)
+          .entries
+          .elementAt(0)
+          .value
+          .toString();
+      trips.add(singleTitle);
+      bookingIDs.add(bookingNr);
+    }
+    print(lengthOfBookingData);
+    return "success";
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -81,12 +104,12 @@ class _Bookings extends State<Bookings> {
                 ElevatedButton(
                   child: const Text('New Booking'),
                   onPressed: () {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => BookingForm(
-                                  userID: widget.userID,
-                                )));
+                   // Navigator.pushReplacement(
+                       // context,
+                       // MaterialPageRoute(
+                          //  builder: (context) => BookingForm(
+                            //      userID: widget.userID,
+                                //)));
                   },
                 ),
                 ElevatedButton(

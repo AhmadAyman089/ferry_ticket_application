@@ -11,10 +11,10 @@ class SplashScreenState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    Timer(
-        Duration(seconds: 2),
-        () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => HomeScreen())));
+    //Timer(
+        //Duration(seconds: 2),
+        //() => Navigator.pushReplacement(
+            //context, MaterialPageRoute(builder: (context) => HomeScreen())));
   }
 
   @override
@@ -24,12 +24,3 @@ class SplashScreenState extends State<MyHomePage> {
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: LoginForm(),
-    );
-  }
-}

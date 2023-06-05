@@ -1,4 +1,5 @@
 import 'package:ferry_ticket_application/pages/home_page.dart';
+import 'package:ferry_ticket_application/pages/login.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -21,7 +22,7 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red)
             .copyWith(secondary: Colors.yellow),
       ),
-      home:  MyHomePage(),
+      home:  LoginPage(),
     );
   }
 }
