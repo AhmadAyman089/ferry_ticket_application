@@ -19,6 +19,7 @@ class FerryTicketBuilder extends StatelessWidget {
   Future<String> getFistName(int id) async {
   final DatabaseService _databaseService = DatabaseService();
   final user = await _databaseService.user(id);
+  
   return user.firstName;
 
   }

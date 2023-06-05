@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ferry_ticket_application/models/ferryticket.dart';
 import 'package:ferry_ticket_application/models/user.dart';
 import 'package:ferry_ticket_application/pages/home_page.dart';
@@ -65,31 +67,20 @@ bool _returnCheckbox = false;
       final departRoute = _departRouteController.text;
       final destRoute = _destRouteController.text;
 
-      
+   
 
-    widget.ferryTicket == null
-     ? await _databaseService
-     .insertFerryTicket(
-      FerryTicket(
+    var newTicket =  FerryTicket(
+        book_id: Random.secure().nextInt(999),
         depart_date: DateTime.parse(departDate),
         journey: journey,
         depart_route: departRoute,
         dest_route: destRoute,
-        user_id: int.parse(widget.userID)),
-        )
-    
-: await _databaseService.updateBooking(
-  FerryTicket(
-        book_id: widget.ferryTicket!.book_id,
-        depart_date: DateTime.parse(departDate),
-        journey: journey,
-        depart_route: departRoute,
-        dest_route: destRoute,
-        user_id: int.parse(widget.userID),
-        
-      ),
-      );
-      Navigator.pop(context);
+        user_id: int.parse(widget.userID));
+    DatabaseService().insertFerryTicket(newTicket);
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomePage(userID: widget.userID)));
     
   }
 
@@ -271,6 +262,7 @@ var  destinations = [
               const SizedBox(height: 24.0),
               ElevatedButton(
                 onPressed: _onSave,
+                
                 child: const Text(
                   'Save Ferry Ticket',
                   style: TextStyle(fontSize: 16.0),
