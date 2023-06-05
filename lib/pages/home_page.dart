@@ -55,14 +55,14 @@ class _HomePageState extends State<HomePage> {
               future: _getFerryTicket(),
               onEdit: (value) {
                 {
-                 /* Navigator.of(context)
+                  Navigator.of(context)
                       .push(
                         MaterialPageRoute(
-                          builder: (_) => ShoeFormPage(shoe: value),
+                          builder: (_) => BookingFormPage(ferryTicket: value, userID: widget.userID,),
                           fullscreenDialog: true,
                         ),
                       )
-                      .then((_) => setState(() {})); */
+                      .then((_) => setState(() {})); 
                 }
               },
               onDelete: _onFerryTicketDelete, // Delet 

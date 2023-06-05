@@ -3,11 +3,13 @@ import 'package:ferry_ticket_application/models/user.dart';
 import 'package:ferry_ticket_application/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import '../services/database_service.dart';
+import 'package:intl/intl.dart';
+
 
 class BookingFormPage extends StatefulWidget {
   final String userID;
-
-  const BookingFormPage({Key? key, required this.userID}) : super(key: key);
+  final FerryTicket? ferryTicket;
+  const BookingFormPage({Key? key, required this.userID, this.ferryTicket}) : super(key: key);
 
   @override
   State<BookingFormPage> createState() => _BookingFormPageState();
@@ -26,12 +28,10 @@ class _BookingFormPageState extends State<BookingFormPage> {
   final TextEditingController _departRouteController = TextEditingController();
   final TextEditingController _destRouteController = TextEditingController();
 
-  static const List<String> destinations = [
-    'Penang',
-    'Langkawi',
-    'Singapore',
-    'Koh Lipe'
-  ];
+  
+
+ bool _oneWayCheckbox = false;
+bool _returnCheckbox = false;
 
   final DatabaseService _databaseService = DatabaseService();
 
@@ -41,38 +41,76 @@ class _BookingFormPageState extends State<BookingFormPage> {
       initialDate: departureDate,
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
+      
     );
+    if (picked != null) {
+    setState(() {
+      departureDate = picked;
+      _departDateController.text = DateFormat('yyyy-MM-dd').format(departureDate);
+    });
+  }
   }
 
+
+
   Future<void> _onSave() async {
-    if (_formKey.currentState!.validate()) {
-      
+
       final firstName = _firstNameController.text;
       final lastName = _lastNameController.text;
       final mobileNumber = _mobileNumberController.text;
 
       final departDate = _departDateController.text;
+
       final journey = _journeyController.text;
       final departRoute = _departRouteController.text;
       final destRoute = _destRouteController.text;
 
-      final ferryTicket = FerryTicket(
+      
+
+    widget.ferryTicket == null
+     ? await _databaseService
+     .insertFerryTicket(
+      FerryTicket(
+        depart_date: DateTime.parse(departDate),
+        journey: journey,
+        depart_route: departRoute,
+        dest_route: destRoute,
+        user_id: int.parse(widget.userID)),
+        )
+    
+: await _databaseService.updateBooking(
+  FerryTicket(
+        book_id: widget.ferryTicket!.book_id,
         depart_date: DateTime.parse(departDate),
         journey: journey,
         depart_route: departRoute,
         dest_route: destRoute,
         user_id: int.parse(widget.userID),
+        
+      ),
       );
-
-      await _databaseService.insertFerryTicket(ferryTicket);
-
       Navigator.pop(context);
-    }
+    
   }
+
+  String dropdownvalue1 = 'Penang';
+  String dropdownvalue2 = 'Koh Lipe';
+var  destinations = [
+    'Penang',
+    'Langkawi',
+    'Singapore',
+    'Koh Lipe',
+  ];
+
+  
 
   @override
   Widget build(BuildContext context) {
     String dropdownValue = destinations.first;
+
+   
+
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('New Ferry Ticket'),
@@ -127,74 +165,109 @@ class _BookingFormPageState extends State<BookingFormPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16.0),
-              TextFormField(
-                controller: _journeyController,
-                decoration: const InputDecoration(labelText: 'Journey'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter the journey';
-                  }
-                  return null;
-                },
+              
+              Container(
+                margin: const EdgeInsets.only(left: 20.0),
+                child: CheckboxListTile(
+                  controlAffinity: ListTileControlAffinity.leading,
+                  title: Text('One way'),
+                  value: _oneWayCheckbox,
+                  onChanged: (value) {
+                    setState(() {
+                      _oneWayCheckbox = value!;
+                      _returnCheckbox = false; // Uncheck the return checkbox
+                      _journeyController.text =
+                          'One way'; // Update the journey controller text
+                    });
+                  },
+                ),
               ),
+              Container(
+                margin: const EdgeInsets.only(left: 20.0),
+                child: CheckboxListTile(
+                  controlAffinity: ListTileControlAffinity.leading,
+                  title: Text('Return'),
+                  value: _returnCheckbox,
+                  onChanged: (value) {
+                    setState(() {
+                      _returnCheckbox = value!;
+                      _oneWayCheckbox = false; // Uncheck the one way checkbox
+                      _journeyController.text =
+                          'Return'; // Update the journey controller text
+                    });
+                  },
+                ),
+              ),
+              
               const SizedBox(height: 16.0),
-              const Text('Depart Route'),
-              DropdownButton<String>(
+              const Text('Depart'),
+
+              DropdownButton(
                 
-                value: dropdownValue,
+                value: dropdownvalue1,
                 icon: const Icon(Icons.arrow_downward),
                 elevation: 16,
-                style: const TextStyle(color: Colors.deepPurple),
-                underline: Container(
-                  height: 2,
-                  color: Colors.deepPurpleAccent,
-                ),
-                onChanged: (String? value) {
-                  // This is called when the user selects an item.
-                  setState(() {
-                    _departRouteController.text = value!;
-                  });
-                },
-                hint: const Text('Select Departure Route'),
-                items:
-                    destinations.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
+                
+                 items:
+                    destinations.map((String value) {
+                  return DropdownMenuItem(
                     value: value,
                     child: Text(value),
                   );
                 }).toList(),
-              ),
                
-              const SizedBox(height: 16.0),
-              const Text('Destination Destination'),
-              DropdownButton<String>(
-                
-                value: dropdownValue,
-                icon: const Icon(Icons.arrow_downward),
-                elevation: 16,
-                style: const TextStyle(color: Colors.deepPurple),
-                underline: Container(
-                  height: 2,
-                  color: Colors.deepPurpleAccent,
-                ),
                 onChanged: (String? value) {
                   // This is called when the user selects an item.
                   setState(() {
-                    _destRouteController.text = value!;
-                  });
+                    dropdownvalue1 = value!;
+                   _departRouteController.text = value;
+                  }
+                  );
                 },
-                hint: const Text('Select Destination Route'),
-                items:
-                    destinations.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
+
+               
+              ),
+
+
+
+              const SizedBox(height: 16.0),
+              const Text('Destination'),
+
+              DropdownButton(
+                
+                value: dropdownvalue2,
+                icon: const Icon(Icons.arrow_downward),
+                elevation: 16,
+                
+                 items:
+                    destinations.map((String value) {
+                  return DropdownMenuItem(
                     value: value,
                     child: Text(value),
                   );
                 }).toList(),
+               
+                onChanged: (String? value) { 
+                  // This is called when the user selects an item.
+                  setState(() {
+                    dropdownvalue2 = value!;
+                    _destRouteController.text = value;
+                  }
+                  );
+                },
+
+               
               ),
 
             
+
+
+
+
+
+
+
+
               const SizedBox(height: 24.0),
               ElevatedButton(
                 onPressed: _onSave,

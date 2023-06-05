@@ -7,7 +7,9 @@ class DatabaseService {
   // Singleton pattern
   static final DatabaseService _databaseService = DatabaseService._internal();
   factory DatabaseService() => _databaseService;
+
   DatabaseService._internal();
+
   static Database? _database;
 
   //Get the database instance
@@ -177,8 +179,7 @@ class DatabaseService {
   Future<List<FerryTicket>> ferryTicket() async {
     final db = await _databaseService.database;
     final List<Map<String, dynamic>> maps = await db.query('ferryticket');
-    return List.generate(
-        maps.length, (index) => FerryTicket.fromMap(maps[index]));
+    return List.generate(maps.length, (index) => FerryTicket.fromMap(maps[index]));
   }
 
   Future<void> deleteBooking(int id) async {
