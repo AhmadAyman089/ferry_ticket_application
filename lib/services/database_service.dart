@@ -20,6 +20,8 @@ class DatabaseService {
     return _database!;
   }
 
+  
+
   Future<Database> _initDatabase() async {
     final databasePath = await getDatabasesPath();
     // Set the path to the database. Note: Using the `join` function from the
@@ -205,7 +207,7 @@ class DatabaseService {
       // Ensure that the Brand has a matching id.
       where: 'book_id = ?',
       // Pass the Brand's id as a whereArg to prevent SQL injection.
-      whereArgs: [ferryticket.book_id],
+      whereArgs: [ferryticket.bookId],
     );
   }
 

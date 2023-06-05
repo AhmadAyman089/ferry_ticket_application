@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ferry_ticket_application/models/ferryticket.dart';
 import 'package:ferry_ticket_application/services/database_service.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 class FerryTicketBuilder extends StatelessWidget {
   const FerryTicketBuilder({
@@ -62,7 +63,7 @@ Widget _buildFerryTicketeCard (FerryTicket ferryTicket, BuildContext context) {
                 color: Colors.grey[200],
               ),
               alignment: Alignment.center,
-              child: const FaIcon(FontAwesomeIcons.gifts, size: 18.0),
+              child: const FaIcon(FontAwesomeIcons.ferry, size: 18.0),
             ),
             const SizedBox(width: 20.0),
             Expanded(
@@ -70,24 +71,24 @@ Widget _buildFerryTicketeCard (FerryTicket ferryTicket, BuildContext context) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    ferryTicket.depart_route,
+                     '${ferryTicket.departRoute} - ${ferryTicket.destRoute}',
                     style: const TextStyle(
-                      fontSize: 18.0,
+                      fontSize: 14.0,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                   const SizedBox(height: 4.0),
                   FutureBuilder<String>(
-                    future: getFistName(ferryTicket.user_id),
+                    future: getFistName(ferryTicket.userId),
                     builder: (context, snapshot) {
-                      return Text('User Id : ${snapshot.data}');
+                      return Text('Name : ${snapshot.data}');
                     },
                   ),
                   const SizedBox(height: 4.0),
                   Row(
                     children: [
-                      Text('Depaty date: ${ferryTicket.depart_date.toString()}, Route: ${ferryTicket.depart_route.toString()} '),
-                      
+                      Text(
+                          'Depart date: ${DateFormat('yyyy-MM-dd').format(ferryTicket.departDate)}'),
                     ],
                   ),
                 ],

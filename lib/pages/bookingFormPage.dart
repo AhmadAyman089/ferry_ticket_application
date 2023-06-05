@@ -70,12 +70,12 @@ bool _returnCheckbox = false;
    
 
     var newTicket =  FerryTicket(
-        book_id: Random.secure().nextInt(999),
-        depart_date: DateTime.parse(departDate),
+        bookId: Random.secure().nextInt(999),
+        departDate: DateTime.parse(departDate),
         journey: journey,
-        depart_route: departRoute,
-        dest_route: destRoute,
-        user_id: int.parse(widget.userID));
+        departRoute: departRoute,
+        destRoute: destRoute,
+        userId: int.parse(widget.userID));
     DatabaseService().insertFerryTicket(newTicket);
     Navigator.pushReplacement(
         context,
@@ -93,6 +93,7 @@ var  destinations = [
     'Koh Lipe',
   ];
 
+
   
 
   @override
@@ -100,7 +101,6 @@ var  destinations = [
     String dropdownValue = destinations.first;
 
    
-
 
     return Scaffold(
       appBar: AppBar(
@@ -161,7 +161,7 @@ var  destinations = [
                 margin: const EdgeInsets.only(left: 20.0),
                 child: CheckboxListTile(
                   controlAffinity: ListTileControlAffinity.leading,
-                  title: Text('One way'),
+                  title: Text('One Way'),
                   value: _oneWayCheckbox,
                   onChanged: (value) {
                     setState(() {

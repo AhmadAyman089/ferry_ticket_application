@@ -1,4 +1,5 @@
 import 'package:ferry_ticket_application/comman_widgets/ferryticket_builder.dart';
+import 'package:ferry_ticket_application/pages/BookingDetails.dart';
 import 'package:ferry_ticket_application/pages/bookingFormPage.dart';
 import 'package:ferry_ticket_application/pages/login.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _onFerryTicketDelete(FerryTicket ferryTicket) async {
-    await _databaseService.deleteBooking(ferryTicket.book_id!);
+    await _databaseService.deleteBooking(ferryTicket.bookId!);
     setState(() {});
   }
 
@@ -53,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.of(context)
                       .push(
                         MaterialPageRoute(
-                          builder: (_) => BookingFormPage(
+                          builder: (_) => BookingFormPageEdit(
                             ferryTicket: value,
                             userID: widget.userID,
                           ),
