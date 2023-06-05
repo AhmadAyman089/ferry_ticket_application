@@ -1,4 +1,5 @@
 import 'package:ferry_ticket_application/models/ferryticket.dart';
+import 'package:ferry_ticket_application/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:ferry_ticket_application/services/database_service.dart';
 import 'BookingForm.dart';
@@ -14,6 +15,7 @@ class Bookings extends StatefulWidget {
 
 
 class _Bookings extends State<Bookings> {
+
   var trips = [];
   var bookingIDs = [];
 
@@ -28,23 +30,12 @@ class _Bookings extends State<Bookings> {
 
     var lengthOfBookingData = bookingdata.length;
     for (int i = 0; i < bookingdata.length; i++) {
-      String singleTitle = "From " + bookingdata
-          .elementAt(i)
-          .entries
-          .elementAt(3)
-          .value
-          .toString() + " to " + bookingdata
-          .elementAt(i)
-          .entries
-          .elementAt(4)
-          .value
-          .toString();
-      String bookingNr =  bookingdata
-          .elementAt(i)
-          .entries
-          .elementAt(0)
-          .value
-          .toString();
+      String singleTitle = "From " +
+          bookingdata.elementAt(i).entries.elementAt(3).value.toString() +
+          " to " +
+          bookingdata.elementAt(i).entries.elementAt(4).value.toString();
+      String bookingNr =
+          bookingdata.elementAt(i).entries.elementAt(0).value.toString();
       trips.add(singleTitle);
       bookingIDs.add(bookingNr);
     }
@@ -116,7 +107,7 @@ class _Bookings extends State<Bookings> {
                   child: const Text('Logout'),
                   onPressed: () {
                     Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => MyHomePage()));
+                        MaterialPageRoute(builder: (context) => LoginPage()));
                   },
                 )
               ]))

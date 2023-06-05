@@ -4,6 +4,8 @@ import 'package:ferry_ticket_application/pages/sign_in.dart';
 //import'package:ferry_ticket_application/pages/booking_details.dart';
 import 'package:ferry_ticket_application/services/database_service.dart';
 
+import 'home_page.dart';
+
 class LoginPage  extends StatefulWidget {
   
   @override
@@ -95,14 +97,17 @@ class _LoginPageState extends State<LoginPage> {
     if (isLoginValid == true) {
       String userID =
           await db.getUserID(nameController.text, passwordController.text);
-      //await Navigator.pushReplacement(
-        //context,
-      // MaterialPageRoute(builder: (context) => Bookings(userID: userID)),
+      await Navigator.pushReplacement(
+        context,
+       MaterialPageRoute(builder: (context) => HomePage(userID: userID)),
 
-      //);
+      );
 
       //TODO: Replace ViewBookingForm with the screen where you can manage bookings.
+
+      
       return true;
+      
     } else {
       print("Try again!");
       return false;
