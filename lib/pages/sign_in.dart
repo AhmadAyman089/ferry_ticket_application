@@ -91,6 +91,18 @@ class _MySigninForm extends State<SigninForm> {
               Expanded(
                 child: Container(
                   height: 50,
+                  padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Handle back button functionality
+                    },
+                    child: const Text('Back'),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  height: 50,
                   padding: const EdgeInsets.fromLTRB(10, 0, 5, 0),
                   child: ElevatedButton(
                     onPressed: () {
@@ -108,21 +120,6 @@ class _MySigninForm extends State<SigninForm> {
                         context,
                         MaterialPageRoute(builder: (context) => LoginPage()),
                       );
-                    },
-                    child: const Text('Back'),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  height: 50,
-                  padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle back button functionality
-
-
-                      
                     },
                     child: const Text('Register'),
                   ),
