@@ -91,7 +91,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New Ferry Ticket'),
+        title: const Text('Book Ticket'),
         centerTitle: true,
       ),
       body: Padding(
@@ -255,7 +255,7 @@ class _BookingFormPageState extends State<BookingFormPage> {
                               HomePage(userID: widget.userID)));
                 },
               ),
-              Text(widget.userID),
+            
             ],
           ),
         ),

@@ -107,15 +107,17 @@ class _MySigninForm extends State<SigninForm> {
                   child: ElevatedButton(
                     onPressed: () {
                       var newUser = User(
-                        userId: Random.secure().nextInt(100),
+                        userId: Random.secure().nextInt(100), //generate a random user ID
                         firstName: fNameController.text,
                         lastName: lNameController.text,
                         username: usernameController.text,
                         password: passwordController.text,
                         mobileNumber: mobileController.text,
                       );
-                      final db = DatabaseService();
-                      db.insertUser(newUser);
+                      final db = DatabaseService(); //create an instance of the DatabaseService
+                      db.insertUser(newUser); //insert the new user into the database using the insertUser method
+
+                      //navigate to the LoginPage,replacing the current page 
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => LoginPage()),
