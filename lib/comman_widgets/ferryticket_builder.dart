@@ -4,7 +4,7 @@ import 'package:ferry_ticket_application/models/ferryticket.dart';
 import 'package:ferry_ticket_application/services/database_service.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-
+// This is ferryticket bulder class
 class FerryTicketBuilder extends StatelessWidget {
   const FerryTicketBuilder({
     Key? key,
@@ -24,7 +24,7 @@ class FerryTicketBuilder extends StatelessWidget {
   return user.firstName;
 
   }
-
+//Build method to build ferrycard 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<FerryTicket>>(
@@ -86,7 +86,7 @@ Widget _buildFerryTicketeCard (FerryTicket ferryTicket, BuildContext context) {
                   ),
                   const SizedBox(height: 4.0),
                   Row(
-                    children: [
+                    children: [ //Assign date
                       Text(
                           'Depart date: ${DateFormat('yyyy-MM-dd').format(ferryTicket.departDate)}'),
                     ],
