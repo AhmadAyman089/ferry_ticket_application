@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ferry_ticket_application/pages/sign_in.dart';
-//import 'package:ferry_ticket_application/pages/booking.dart';
-//import'package:ferry_ticket_application/pages/booking_details.dart';
 import 'package:ferry_ticket_application/services/database_service.dart';
 
 import 'home_page.dart';
@@ -17,93 +15,71 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    bool loginError = false;
+    bool loginError = false; //Flag to indicate if there is a login error
 
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              CircleAvatar(radius: 150, backgroundColor: Colors.white,child: Image.asset(
-                'assets/ferrylogo.png',
-                width: MediaQuery.of(context).size.width / 1,
-              ))
-              ,
-              const SizedBox(height: 20.0),
-              const Text(
-                'Please login to view your bookings',
-                style: TextStyle(fontSize: 15),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 20.0),
-              TextFormField(
-                controller: nameController,
-                decoration: const InputDecoration(
-                  labelText: 'Username',
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
+        body: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/ferrylogo.png',
+                    width: MediaQuery.of(context).size.width / 2,
                   ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your username';
-                  }
-                  return null;
-                },
-              ),
-
-              const SizedBox(height: 10.0),
-              TextFormField(
-                obscureText: true,
-                controller: passwordController,
-                
-                decoration: const InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                ),
-
-                
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 20.0),
-              ElevatedButton(
-                child: const Text('Login'),
-                onPressed: handleLogin,
-              ),
-              const SizedBox(height: 10.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Text("Don't have an account?"),
-                  TextButton(
-                    child: const Text(
-                      'Sign up',
-                      style: TextStyle(fontSize: 16.0),
+                  Container(
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Please login to view your bookings',
+                        style: TextStyle(fontSize: 20),
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: TextField(
+                      controller: nameController,
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Username',
+                      ),
                     ),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => SigninForm()),
-                      );
-                    },
                   ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    child: TextField(
+                      obscureText: true,
+                      controller: passwordController,
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Password',
+                      ),
+                    ),
+                  ),
+                  Container(height: 10),
+                  Container(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      width: MediaQuery.of(context).size.width,
+                      child: ElevatedButton(
+                        child: const Text('Login'),
+                        onPressed: handleLogin,
+                      )),
+                  Row(
+                    children: <Widget>[
+                      const Text('Does not have account?'),
+                      TextButton(
+                          child: const Text(
+                            'Sign up',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SigninForm()),
+                            );
+                          }),
+                    ],
+                  )
+                ])));
   }
 
   Future<bool> handleLogin() async {
