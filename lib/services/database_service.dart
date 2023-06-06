@@ -20,12 +20,10 @@ class DatabaseService {
     return _database!;
   }
 
-  
-
   Future<Database> _initDatabase() async {
     final databasePath = await getDatabasesPath();
     //Database connection
-    
+
     final path = join(databasePath, 'ferryservices.db');
     return await openDatabase(
       path,
@@ -63,8 +61,8 @@ class DatabaseService {
     await db.insert(
       'user',
       user.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,     //conflictAlgorithm to use in case the same breed is inserted twice.
-
+      conflictAlgorithm: ConflictAlgorithm
+          .replace, //conflictAlgorithm to use in case the same breed is inserted twice.
     );
   }
 
@@ -77,6 +75,7 @@ class DatabaseService {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+
 //Check User password and username
   Future<bool> checkUserLogin(String username, String password) async {
     final db = await database;
@@ -176,7 +175,8 @@ class DatabaseService {
   Future<List<FerryTicket>> ferryTicket() async {
     final db = await _databaseService.database;
     final List<Map<String, dynamic>> maps = await db.query('ferryticket');
-    return List.generate(maps.length, (index) => FerryTicket.fromMap(maps[index]));
+    return List.generate(
+        maps.length, (index) => FerryTicket.fromMap(maps[index]));
   }
 
   Future<void> deleteBooking(int id) async {
@@ -207,15 +207,14 @@ class DatabaseService {
   }
 
   Future<void> updateUser(User user) async {
-  final db = await _databaseService.database;
+    final db = await _databaseService.database;
 
-  await db.rawUpdate('''
+    await db.rawUpdate('''
     UPDATE user
     SET f_name = ?, l_name = ?, mobilehp = ?
     WHERE user_id = ?
   ''', [user.firstName, user.lastName, user.mobileNumber, user.userId]);
-}
-
+  }
 
   Future<User> user(int id) async {
     final db = await _databaseService.database;
