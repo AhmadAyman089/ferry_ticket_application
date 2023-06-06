@@ -84,15 +84,15 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<bool> handleLogin() async {
     final db = DatabaseService();
-    //check if the login is valid by calling checkUserLogin method from the DatabaseService
+    // Check if the login is valid by calling checkUserLogin method from the DatabaseService
     bool isLoginValid =
         await db.checkUserLogin(nameController.text, passwordController.text);
 
     if (isLoginValid == true) {
-      //if login is valid
+      // if login is valid
       String userID =
           await db.getUserID(nameController.text, passwordController.text);
-      //navigate to the HomePage, passing the UserID as a parameter
+      // Navigate to the HomePage, passing the userID as a parameter
       await Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => HomePage(userID: userID)),
