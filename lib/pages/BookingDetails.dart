@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import '../services/database_service.dart';
 import 'package:intl/intl.dart';
 
-
+// Make class formedit
 class BookingFormPageEdit extends StatefulWidget {
   final String userID;
   final FerryTicket? ferryTicket;
@@ -16,7 +16,7 @@ class BookingFormPageEdit extends StatefulWidget {
   @override
   State<BookingFormPageEdit> createState() => _BookingFormPageEditState();
 }
-
+// declare text edit controller
 class _BookingFormPageEditState extends State<BookingFormPageEdit> {
   final _formKey = GlobalKey<FormState>();
 
@@ -30,7 +30,7 @@ class _BookingFormPageEditState extends State<BookingFormPageEdit> {
   final TextEditingController _departRouteController = TextEditingController();
   final TextEditingController _destRouteController = TextEditingController();
 
-  
+  //decalre check box 
 
  bool _oneWayCheckbox = false;
 bool _returnCheckbox = false;
@@ -39,7 +39,7 @@ bool _returnCheckbox = false;
 
   Future<void> _selectCheckInDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
-      context: context,
+      context: context, // Inital date set curent date
       initialDate: departureDate,
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
@@ -55,7 +55,7 @@ bool _returnCheckbox = false;
   }
 
 
-
+// Save method to database
   Future<void> _onSave() async {
 
       final firstName = _firstNameController.text;
@@ -72,7 +72,7 @@ bool _returnCheckbox = false;
       ? await _databaseService.insertFerryTicket(
           FerryTicket(
             bookId: Random.secure().nextInt(999),
-            departDate: DateTime.parse(departDate),
+            departDate: DateTime.parse(departDate), 
             journey: journey,
             departRoute: departRoute,
             destRoute: destRoute,
@@ -98,7 +98,7 @@ bool _returnCheckbox = false;
   String dropdownvalue1 = 'Penang';
   String dropdownvalue2 = 'Koh Lipe';
 
-
+// Setdropdown menu
 var  destinations = [
     'Penang',
     'Langkawi',
@@ -106,7 +106,7 @@ var  destinations = [
     'Koh Lipe',
   ];
     @override
-
+// put value
 void initState() {
   super.initState();
 
@@ -119,7 +119,7 @@ void initState() {
     departureDate = ferryTicket.departDate; 
     _departDateController.text = DateFormat('yyyy-MM-dd').format(departureDate);
     _journeyController.text = ferryTicket.journey;
-
+// set state checkbox 
     setState(() {
       dropdownvalue1 = ferryTicket.departRoute;
       dropdownvalue2 = ferryTicket.destRoute;
@@ -146,7 +146,7 @@ void initState() {
     }
   });
 }
-
+//Build method 
   @override
   Widget build(BuildContext context) {
     String dropdownValue = destinations.first;
@@ -155,7 +155,7 @@ void initState() {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New Ferry Ticket'),
+        title: const Text('View Ticket'),
         centerTitle: true,
       ),
       body: Padding(
@@ -332,7 +332,7 @@ void initState() {
                             },
                           ),
 
-             Text(widget.userID),             
+                     
             ],
           ),
         ),

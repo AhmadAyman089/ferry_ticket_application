@@ -9,7 +9,7 @@ import 'package:ferry_ticket_application/services/database_service.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
-  final String userID;
+  final String userID; //get user id
   const HomePage({Key? key, required this.userID}) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  //Widget build ferry ticket
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 1,
@@ -47,14 +48,14 @@ class _HomePageState extends State<HomePage> {
         ),
         body: TabBarView(
           children: [
-            // This one dislay shoes
+            // This one dislay booking
             FerryTicketBuilder(
               future: _getFerryTicket(),
               onEdit: (value) {
                 {
                   Navigator.of(context)
                       .push(
-                        MaterialPageRoute(
+                        MaterialPageRoute( // Nav to bookingformEdit
                           builder: (_) => BookingFormPageEdit(
                             ferryTicket: value,
                             userID: widget.userID,
@@ -74,7 +75,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             FloatingActionButton(
               onPressed: () {
-                Navigator.of(context) // Nav to shoehomepage
+                Navigator.of(context) // Nav to bookingfrompage
                     .pushReplacement(
                       MaterialPageRoute(
                         builder: (context) => BookingFormPage(
@@ -84,12 +85,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                     )
                     .then((_) => setState(() {}));
-              },
+              }, 
               heroTag: 'addBooking',
-              child: const FaIcon(FontAwesomeIcons.ticket),
+              child: const FaIcon(FontAwesomeIcons.ticket), //Ticket icon
             ),
-            ElevatedButton(
-              child: Icon(Icons.logout_rounded),
+            ElevatedButton( 
+              child: Icon(Icons.logout_rounded), // Icon for log out
               onPressed: () {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => LoginPage()));

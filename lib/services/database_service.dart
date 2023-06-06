@@ -24,12 +24,9 @@ class DatabaseService {
 
   Future<Database> _initDatabase() async {
     final databasePath = await getDatabasesPath();
-    // Set the path to the database. Note: Using the `join` function from the
-    // `path` package is best practice to ensure the path is correctly
-    // constructed for each platform.
+    //Database connection
+    
     final path = join(databasePath, 'ferryservices.db');
-    // Set the version. This executes the onCreate function and provides a
-    // path to perform database upgrades and downgrades.
     return await openDatabase(
       path,
       onCreate: _onCreate,
@@ -38,9 +35,8 @@ class DatabaseService {
     );
   }
 
-  //create tables for user and ferryticket in the database
+  //create tables, user and ferryticket
   Future<void> _onCreate(Database db, int version) async {
-    // Run the CREATE {user} TABLE statement on the database.
     await db.execute(
       'CREATE TABLE user(user_id INTEGER PRIMARY KEY,f_name TEXT,l_name TEXT,username TEXT,password TEXT,mobilehp TEXT)',
     );
@@ -62,14 +58,13 @@ class DatabaseService {
   Future<void> insertUser(User user) async {
     // Get a reference to the database.
     final db = await _databaseService.database;
-    // Insert the User into the correct table. You might also specify the
-    // `conflictAlgorithm` to use in case the same breed is inserted twice.
-    //
+    // Insert the User into the correct table
     // In this case, replace any previous data.
     await db.insert(
       'user',
       user.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      conflictAlgorithm: ConflictAlgorithm.replace,     //conflictAlgorithm to use in case the same breed is inserted twice.
+
     );
   }
 
@@ -82,7 +77,7 @@ class DatabaseService {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
-
+//Check User password and username
   Future<bool> checkUserLogin(String username, String password) async {
     final db = await database;
     bool validLogin;

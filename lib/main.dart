@@ -2,6 +2,7 @@ import 'package:ferry_ticket_application/pages/home_page.dart';
 import 'package:ferry_ticket_application/pages/login.dart';
 import 'package:flutter/material.dart';
 
+//Main class 
 void main() {
   runApp(const MyApp());
 }
@@ -21,7 +22,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red)
             .copyWith(secondary: Colors.yellow),
-      ),
+      ), // Goto Login Page
       home:  LoginPage(),
     );
   }
