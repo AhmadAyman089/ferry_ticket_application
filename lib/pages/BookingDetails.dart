@@ -116,12 +116,21 @@ void initState() {
 
     _departRouteController.text = ferryTicket.departRoute;
     _destRouteController.text = ferryTicket.destRoute;
-     departureDate = ferryTicket.departDate; 
-     _departDateController.text = DateFormat('yyyy-MM-dd').format(departureDate);
+    departureDate = ferryTicket.departDate; 
+    _departDateController.text = DateFormat('yyyy-MM-dd').format(departureDate);
+    _journeyController.text = ferryTicket.journey;
+
     setState(() {
       dropdownvalue1 = ferryTicket.departRoute;
       dropdownvalue2 = ferryTicket.destRoute;
 
+      if (ferryTicket.journey == 'One way') {
+        _oneWayCheckbox = true;
+        _returnCheckbox = false;
+      } else if (ferryTicket.journey == 'Return') {
+        _oneWayCheckbox = false;
+        _returnCheckbox = true;
+      }
     });
   }
 
@@ -138,10 +147,10 @@ void initState() {
   });
 }
 
-
   @override
   Widget build(BuildContext context) {
     String dropdownValue = destinations.first;
+
 
 
     return Scaffold(
@@ -198,7 +207,8 @@ void initState() {
                   ),
                 ],
               ),
-              
+            
+
               Container(
                 margin: const EdgeInsets.only(left: 20.0),
                 child: CheckboxListTile(
@@ -215,6 +225,7 @@ void initState() {
                   },
                 ),
               ),
+
               Container(
                 margin: const EdgeInsets.only(left: 20.0),
                 child: CheckboxListTile(
