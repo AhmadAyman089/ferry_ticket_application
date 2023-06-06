@@ -110,10 +110,23 @@ class _BookingFormPageEditState extends State<BookingFormPageEdit> {
       final ferryTicket = widget.ferryTicket!;
       _departRouteController.text = ferryTicket.departRoute;
       _destRouteController.text = ferryTicket.destRoute;
+      departureDate = ferryTicket.departDate; 
+
       setState(() {
         dropdownvalue1 = ferryTicket.departRoute;
         dropdownvalue2 = ferryTicket.destRoute;
-      });
+
+
+ if (ferryTicket.journey == 'One way') {
+        _oneWayCheckbox = true;
+        _returnCheckbox = false;
+      } else if (ferryTicket.journey == 'Return') {
+        _oneWayCheckbox = false;
+        _returnCheckbox = true;
+      }
+        
+      }
+      );
     }
 
     // Fetch user data from the database and update form fields
