@@ -278,7 +278,7 @@ class _BookingFormPageEditState extends State<BookingFormPageEdit> {
                               HomePage(userID: widget.userID)));
                 },
               ),
-              Text(widget.userID),
+            
             ],
           ),
         ),
