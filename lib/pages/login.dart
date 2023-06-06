@@ -27,14 +27,15 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image.asset(
+              CircleAvatar(radius: 150, backgroundColor: Colors.white,child: Image.asset(
                 'assets/ferrylogo.png',
-                width: MediaQuery.of(context).size.width / 2,
-              ),
+                width: MediaQuery.of(context).size.width / 1,
+              ))
+              ,
               const SizedBox(height: 20.0),
               const Text(
                 'Please login to view your bookings',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 15),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20.0),
@@ -42,6 +43,9 @@ class _LoginPageState extends State<LoginPage> {
                 controller: nameController,
                 decoration: const InputDecoration(
                   labelText: 'Username',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -50,13 +54,20 @@ class _LoginPageState extends State<LoginPage> {
                   return null;
                 },
               ),
+
               const SizedBox(height: 10.0),
               TextFormField(
                 obscureText: true,
                 controller: passwordController,
+                
                 decoration: const InputDecoration(
                   labelText: 'Password',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
                 ),
+
+                
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your password';
