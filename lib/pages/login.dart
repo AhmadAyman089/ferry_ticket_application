@@ -37,23 +37,35 @@ class _LoginPageState extends State<LoginPage> {
                       )),
                   Padding(
                     padding: const EdgeInsets.all(10),
-                    child: TextField(
+                    child: TextFormField(
                       controller: nameController,
                       decoration: const InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: 'Username',
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your username';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    child: TextField(
+                    child: TextFormField(
                       obscureText: true,
                       controller: passwordController,
                       decoration: const InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: 'Password',
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   Container(height: 10),

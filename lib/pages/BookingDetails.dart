@@ -96,6 +96,8 @@ bool _returnCheckbox = false;
 
   String dropdownvalue1 = 'Penang';
   String dropdownvalue2 = 'Koh Lipe';
+
+
 var  destinations = [
     'Penang',
     'Langkawi',
@@ -110,11 +112,14 @@ void initState() {
   // Update form fields based on the ferry ticket data
   if (widget.ferryTicket != null) {
     final ferryTicket = widget.ferryTicket!;
+
     _departRouteController.text = ferryTicket.departRoute;
     _destRouteController.text = ferryTicket.destRoute;
+     departureDate = ferryTicket.departDate; 
     setState(() {
       dropdownvalue1 = ferryTicket.departRoute;
       dropdownvalue2 = ferryTicket.destRoute;
+
     });
   }
 
