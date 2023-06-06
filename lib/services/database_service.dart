@@ -211,6 +211,17 @@ class DatabaseService {
     );
   }
 
+  Future<void> updateUser(User user) async {
+  final db = await _databaseService.database;
+
+  await db.rawUpdate('''
+    UPDATE user
+    SET f_name = ?, l_name = ?, mobilehp = ?
+    WHERE user_id = ?
+  ''', [user.firstName, user.lastName, user.mobileNumber, user.userId]);
+}
+
+
   Future<User> user(int id) async {
     final db = await _databaseService.database;
     final List<Map<String, dynamic>> maps =
