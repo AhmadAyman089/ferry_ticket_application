@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 import '../services/database_service.dart';
 import 'package:intl/intl.dart';
 
-
 class BookingFormPage extends StatefulWidget {
   final String userID;
   final FerryTicket? ferryTicket;
-  const BookingFormPage({Key? key, required this.userID, this.ferryTicket}) : super(key: key);
+  const BookingFormPage({Key? key, required this.userID, this.ferryTicket})
+      : super(key: key);
 
   @override
   State<BookingFormPage> createState() => _BookingFormPageState();
@@ -30,10 +30,8 @@ class _BookingFormPageState extends State<BookingFormPage> {
   final TextEditingController _departRouteController = TextEditingController();
   final TextEditingController _destRouteController = TextEditingController();
 
-  
-
- bool _oneWayCheckbox = false;
-bool _returnCheckbox = false;
+  bool _oneWayCheckbox = false;
+  bool _returnCheckbox = false;
 
   final DatabaseService _databaseService = DatabaseService();
 
@@ -43,33 +41,28 @@ bool _returnCheckbox = false;
       initialDate: departureDate,
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
-      
     );
     if (picked != null) {
-    setState(() {
-      departureDate = picked;
-      _departDateController.text = DateFormat('yyyy-MM-dd').format(departureDate);
-    });
+      setState(() {
+        departureDate = picked;
+        _departDateController.text =
+            DateFormat('yyyy-MM-dd').format(departureDate);
+      });
+    }
   }
-  }
-
-
 
   Future<void> _onSave() async {
+    final firstName = _firstNameController.text;
+    final lastName = _lastNameController.text;
+    final mobileNumber = _mobileNumberController.text;
 
-      final firstName = _firstNameController.text;
-      final lastName = _lastNameController.text;
-      final mobileNumber = _mobileNumberController.text;
+    final departDate = _departDateController.text;
 
-      final departDate = _departDateController.text;
+    final journey = _journeyController.text;
+    final departRoute = _departRouteController.text;
+    final destRoute = _destRouteController.text;
 
-      final journey = _journeyController.text;
-      final departRoute = _departRouteController.text;
-      final destRoute = _destRouteController.text;
-
-   
-
-    var newTicket =  FerryTicket(
+    var newTicket = FerryTicket(
         bookId: Random.secure().nextInt(999),
         departDate: DateTime.parse(departDate),
         journey: journey,
@@ -81,26 +74,20 @@ bool _returnCheckbox = false;
         context,
         MaterialPageRoute(
             builder: (context) => HomePage(userID: widget.userID)));
-    
   }
 
   String dropdownvalue1 = 'Penang';
   String dropdownvalue2 = 'Koh Lipe';
-var  destinations = [
+  var destinations = [
     'Penang',
     'Langkawi',
     'Singapore',
     'Koh Lipe',
   ];
 
-
-  
-
   @override
   Widget build(BuildContext context) {
     String dropdownValue = destinations.first;
-
-   
 
     return Scaffold(
       appBar: AppBar(
@@ -156,7 +143,6 @@ var  destinations = [
                   ),
                 ],
               ),
-              
               Container(
                 margin: const EdgeInsets.only(left: 20.0),
                 child: CheckboxListTile(
@@ -189,101 +175,104 @@ var  destinations = [
                   },
                 ),
               ),
-              
               const SizedBox(height: 16.0),
               const Text('Depart'),
-
               DropdownButton(
-                
                 value: dropdownvalue1,
                 icon: const Icon(Icons.arrow_downward),
                 elevation: 16,
-                
-                 items:
-                    destinations.map((String value) {
+                items: destinations.map((String value) {
                   return DropdownMenuItem(
                     value: value,
                     child: Text(value),
                   );
                 }).toList(),
-               
                 onChanged: (String? value) {
                   // This is called when the user selects an item.
                   setState(() {
                     dropdownvalue1 = value!;
-                   _departRouteController.text = value;
-                  }
-                  );
+                    _departRouteController.text = value;
+                  });
                 },
-
-               
               ),
-
-
-
               const SizedBox(height: 16.0),
               const Text('Destination'),
-
               DropdownButton(
-                
                 value: dropdownvalue2,
                 icon: const Icon(Icons.arrow_downward),
                 elevation: 16,
-                
-                 items:
-                    destinations.map((String value) {
+                items: destinations.map((String value) {
                   return DropdownMenuItem(
                     value: value,
                     child: Text(value),
                   );
                 }).toList(),
-               
-                onChanged: (String? value) { 
+                onChanged: (String? value) {
                   // This is called when the user selects an item.
                   setState(() {
                     dropdownvalue2 = value!;
                     _destRouteController.text = value;
-                  }
-                  );
+                  });
                 },
-
-               
               ),
-
-            
-
-
-
-
-
-
-
-
               const SizedBox(height: 24.0),
               ElevatedButton(
-                onPressed: _onSave,
-                
+                onPressed: () {
+                  if (_validateForm()) {
+                    _onSave();
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Error'),
+                          content: Text('Please fill in all the details.'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('OK'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                },
                 child: const Text(
                   'Save Ferry Ticket',
                   style: TextStyle(fontSize: 16.0),
                 ),
               ),
               ElevatedButton(
-                            child: Text('Back'),
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          HomePage(userID: widget.userID)));
-                            },
-                          ),
-
-             Text(widget.userID),             
+                child: Text('Back'),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              HomePage(userID: widget.userID)));
+                },
+              ),
+              Text(widget.userID),
             ],
           ),
         ),
       ),
     );
+  }
+
+  bool _validateForm() {
+    if (_firstNameController.text.isEmpty ||
+        _lastNameController.text.isEmpty ||
+        _mobileNumberController.text.isEmpty ||
+        _departDateController.text.isEmpty ||
+        _journeyController.text.isEmpty ||
+        _departRouteController.text.isEmpty ||
+        _destRouteController.text.isEmpty) {
+      return false; // Form is not valid if any field is empty
+    }
+    return true; // Form is valid if all fields are filled
   }
 }

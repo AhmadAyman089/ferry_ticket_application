@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-// This FerryTicket Class database model
+// This is FerryTicket Class database model
 
 class FerryTicket {
   final int? bookId; // Ticket ID
@@ -9,13 +9,15 @@ class FerryTicket {
   final String departRoute; // Departure route
   final String destRoute; // Destination route
   final int userId; // User ID
+
+  //constructor for the FerryTicket class
   FerryTicket({
     this.bookId,
     required this.departDate,
     required this.journey,
     required this.departRoute,
     required this.destRoute,
-    required this.userId, 
+    required this.userId,
   });
 
   // Convert a FerryTicket object into a map. The keys correspond to the names of the columns in the database.
@@ -34,13 +36,11 @@ class FerryTicket {
   factory FerryTicket.fromMap(Map<String, dynamic> map) {
     return FerryTicket(
       bookId: map['book_id']?.toInt() ?? 0,
-      departDate: DateTime.parse(map['depart_date']?? ''),
+      departDate: DateTime.parse(map['depart_date'] ?? ''),
       journey: map['journey'] ?? '',
       departRoute: map['depart_route'] ?? '',
       destRoute: map['dest_route'] ?? '',
       userId: map['user_id']?.toInt() ?? 0,
-    
-
     );
   }
 

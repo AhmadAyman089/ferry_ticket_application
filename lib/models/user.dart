@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+// This is User Class database model
 class User {
   final int? userId; // User ID
   final String firstName; // First name
@@ -8,6 +9,7 @@ class User {
   final String password; // Password
   final String mobileNumber; // Mobile number
 
+  //constructor for the user class
   User({
     this.userId,
     required this.firstName,
