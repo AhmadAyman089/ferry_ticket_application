@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+// This is User Class database model
 class User {
   final int? userId; // User ID
   final String firstName; // First name
@@ -8,6 +9,7 @@ class User {
   final String password; // Password
   final String mobileNumber; // Mobile number
 
+  //constructor for the user class
   User({
     this.userId,
     required this.firstName,
@@ -32,7 +34,7 @@ class User {
   // Create a User object from a map representation.
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      userId: map['user_id']?.toInt(),
+      userId: map['user_id']?.toInt() ?? 0,
       firstName: map['f_name'] ?? '',
       lastName: map['l_name'] ?? '',
       username: map['username'] ?? '',
@@ -50,7 +52,7 @@ class User {
   // Override the toString method to provide a string representation of a User object.
   @override
   String toString() {
-    return 'User(userId: $userId, firstName: $firstName, lastName: $lastName, '
-        'username: $username, password: $password, mobileNumber: $mobileNumber)';
+    return 'user(user_id: $userId, f_name: $firstName, l_name: $lastName, '
+        'username: $username, password: $password, mobilehp: $mobileNumber)';
   }
 }
