@@ -47,6 +47,7 @@ bool _returnCheckbox = false;
     );
     if (picked != null) {
     setState(() {
+      
       departureDate = picked;
       _departDateController.text = DateFormat('yyyy-MM-dd').format(departureDate);
     });
@@ -116,6 +117,7 @@ void initState() {
     _departRouteController.text = ferryTicket.departRoute;
     _destRouteController.text = ferryTicket.destRoute;
      departureDate = ferryTicket.departDate; 
+     _departDateController.text = DateFormat('yyyy-MM-dd').format(departureDate);
     setState(() {
       dropdownvalue1 = ferryTicket.departRoute;
       dropdownvalue2 = ferryTicket.destRoute;
